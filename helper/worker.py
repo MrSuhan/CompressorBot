@@ -149,7 +149,7 @@ async def sample(e):
             [Button.inline("CANCEL PROCESS", data=f"skip{wah}")],
         ],
     )
-    ncmd = f'ffmpeg -i '''{dl}''' -c:v libx265 -map 0 -crf 28 -c:s copy -pix_fmt yuv420p -s 854x480 -b:v 150k -c:a libopus -b:a 40k -preset veryfast '''{out}''' -y '
+    ncmd = f'ffmpeg -i "{dl}" -preset veryfast -c:v libx265 -crf 28 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "{out}" -y' '
     process = await asyncio.create_subprocess_shell(
         ncmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
